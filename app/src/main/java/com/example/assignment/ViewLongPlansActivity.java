@@ -106,31 +106,31 @@ public class ViewLongPlansActivity extends AppCompatActivity {
         }
 
 
-        /*listDataHeader.add("Java");
-        listDataHeader.add("C#");
-        listDataHeader.add("Python");
-        listDataHeader.add("Something");
-
-        List<String> list1 = new ArrayList<>();
-        list1.add("This is Expandable List");
-        List<String> list2 = new ArrayList<>();
-        list2.add("Blablabla");
-        list2.add("Blablabla");
-        list2.add("Blablabla");
-        List<String> list3 = new ArrayList<>();
-        list3.add("This is Expandable List Of list 3");
-        list3.add("This is Expandable List Of list 3");
-        list3.add("This is Expandable List Of list 3");
-        list3.add("This is Expandable List Of list 3");
-        List<String> list4 = new ArrayList<>();
-        list4.add("Putang Inamo bobo");
-        list4.add("Putang Inamo bobo");
-        list4.add("Putang Inamo bobo");
-
-        listHash.put(listDataHeader.get(0), list1);
-        listHash.put(listDataHeader.get(1), list2);
-        listHash.put(listDataHeader.get(2), list3);
-        listHash.put(listDataHeader.get(3), list4);*/
+//        listDataHeader.add("Java");
+//        listDataHeader.add("C#");
+//        listDataHeader.add("Python");
+//        listDataHeader.add("Something");
+//
+//        List<String> list1 = new ArrayList<>();
+//        list1.add("This is Expandable List");
+//        List<String> list2 = new ArrayList<>();
+//        list2.add("Blablabla");
+//        list2.add("Blablabla");
+//        list2.add("Blablabla");
+//        List<String> list3 = new ArrayList<>();
+//        list3.add("This is Expandable List Of list 3");
+//        list3.add("This is Expandable List Of list 3");
+//        list3.add("This is Expandable List Of list 3");
+//        list3.add("This is Expandable List Of list 3");
+//        List<String> list4 = new ArrayList<>();
+//        list4.add("Putang Inamo bobo");
+//        list4.add("Putang Inamo bobo");
+//        list4.add("Putang Inamo bobo");
+//
+//        listHash.put(listDataHeader.get(0), list1);
+//        listHash.put(listDataHeader.get(1), list2);
+//        listHash.put(listDataHeader.get(2), list3);
+//        listHash.put(listDataHeader.get(3), list4);
 
 
     }

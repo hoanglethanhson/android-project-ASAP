@@ -11,4 +11,5 @@
     <string name="title_activity_view_trash">ViewTrashActivity</string>
     <string name="title_activity_view_short_plan_detail">ViewShortPlanDetail</string>
     <string name="title_activity_view_long_plan_detail">ViewLongPlanDetail</string>
+    <string name="title_activity_add_short_plan">AddShortPlanActivity</string>
 </resources>

@@ -288,6 +288,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return notes;
     }
 
+
     //find urgent notes
     public ArrayList<ShortTermNote> findUrgentNotes() {
         ShortTermNote note;

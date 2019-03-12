@@ -10,16 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AddShortPlanActivity"
+            android:label="@string/title_activity_add_short_plan"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ViewLongPlanDetail"
             android:label="@string/title_activity_view_long_plan_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewShortPlanDetail"
             android:label="@string/title_activity_view_short_plan_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HelpActivity" />
-        <activity android:name=".AboutActivity"
-            android:label="About"/>
+        <activity
+            android:name=".AboutActivity"
+            android:label="About" />
         <activity
             android:name=".ViewTrashActivity"
             android:label="@string/title_activity_view_trash"

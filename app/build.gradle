@@ -29,5 +29,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //add library
-    compile 'com.github.medyo:android-about-page:1.1.1'
+    implementation 'com.github.medyo:android-about-page:1.1.1'
 }

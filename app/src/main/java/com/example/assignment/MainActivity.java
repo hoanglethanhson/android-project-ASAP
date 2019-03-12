@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private static final int MAIN_REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("ASAP");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

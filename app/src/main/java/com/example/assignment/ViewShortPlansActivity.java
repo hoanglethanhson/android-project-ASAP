@@ -28,6 +28,7 @@ public class ViewShortPlansActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("List of short term tasks");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_short_plans);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -37,6 +38,8 @@ public class ViewShortPlansActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ViewShortPlansActivity.this, AddShortPlanActivity.class);
+                startActivity(intent);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

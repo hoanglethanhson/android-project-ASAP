@@ -83,9 +83,11 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
         CheckBox checkBox = findViewById(R.id.chkComplete);
         //checkBox.setEnabled(false);
 
+
         dateTime = note.getDeadline();
         String[] words = dateTime.split("\\s");
         title.setText(note.getTitle());
+        setTitle(title.getText().toString());
         try {
             deadline.setText(words[0]);
             deadTime.setText(words[1]);
