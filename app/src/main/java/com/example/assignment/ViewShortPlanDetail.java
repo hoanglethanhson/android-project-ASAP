@@ -1,10 +1,12 @@
 package com.example.assignment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -28,11 +30,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
 
     String dateTime;
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        backToMain();
-    }
+
 
     private int day;
     private int month;
@@ -41,6 +39,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
     private int min;
 
     private int id;
+    private int receiveRequestCode;
 
     //relationship constants
     private static final int NOT_BELONG = -1;
@@ -49,6 +48,8 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
 
     private static final int COMPLETE = 1;
     private static final int DELETED = 1;
+
+    private static final int MAIN_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +99,14 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
         if (note.getIsComplete() == 1) {
             checkBox.setChecked(true);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(Activity.RESULT_OK);
+        super.onBackPressed();
+
+
     }
 
     public void onTitleClick(View view) {
@@ -232,7 +241,22 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
 
     //go back to MainActivity
     private void backToMain() {
+
         Intent intent = new Intent(ViewShortPlanDetail.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        receiveRequestCode = requestCode;
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void finish() {
+        if (receiveRequestCode == MAIN_REQUEST_CODE) {
+            backToMain();
+        }
+        super.finish();
     }
 }

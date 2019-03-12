@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int MAIN_REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +80,17 @@ public class MainActivity extends AppCompatActivity
                 String firstLine = twoLineListItem.getText1().getText().toString();
                 String[] words=firstLine.split("\\s");
                 intent.putExtra("id", words[0]);
-                startActivity(intent);
+                startActivityForResult(intent, MAIN_REQUEST_CODE);
+                //startActivity(intent);
+            }
+        });
+
+        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.refresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateListView(); // your code
+                pullToRefresh.setRefreshing(false);
             }
         });
     }
