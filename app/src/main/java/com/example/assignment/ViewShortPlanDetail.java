@@ -103,7 +103,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
 
     @Override
     public void onBackPressed() {
-        setResult(Activity.RESULT_OK);
+        //setResult(Activity.RESULT_OK);
         super.onBackPressed();
 
 
@@ -214,7 +214,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
         builder.setTitle("Confirmation");
 
         // Set up the input
-        final TextView message = new EditText(this);
+        final TextView message = new TextView(this);
         message.setText("Do you want to move this note to Recycle Bin?");
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         builder.setView(message);
