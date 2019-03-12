@@ -349,4 +349,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
 
     }
+
+    public ArrayList<LongTermNote> findAllLongNotes() {
+        LongTermNote note;
+        ArrayList<LongTermNote> notes = new ArrayList<>();
+        String query = "Select * From " + TABLE_LONGNOTE;
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                note = new LongTermNote();
+                note.setId(cursor.getInt(0));
+                note.setTitle(cursor.getString(1));
+
+
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return notes;
+    }
+    public long addShortTermNoteOfLongTerm(ShortTermNote note) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SHORTNOTE_TITLE, note.getTitle());
+        values.put(COLUMN_SHORTNOTE_CONTENT, note.getContent());
+        values.put(COLUMN_SHORTNOTE_DEADLINE, note.getDeadline());
+        values.put(COLUMN_SHORTNOTE_ISDEAD, note.getIsDeleted());
+        values.put(COLUMN_SHORTNOTE_ISCOMPLETE, NOT_COMPLETE);
+        values.put(COLUMN_SHORTNOTE_LONGNOTEID, note.getLongNoteId());
+
+        SQLiteDatabase db = getWritableDatabase();
+        long result = db.insert(TABLE_SHORTNOTE, null, values);
+
+        return result;
+    }
 }

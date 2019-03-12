@@ -7,5 +7,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ViewLongPlansActivity"
     tools:showIn="@layout/activity_view_long_plans">
+    <ExpandableListView
+        android:id="@+id/lvExpLongPlan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    </ExpandableListView>
 </android.support.constraint.ConstraintLayout>

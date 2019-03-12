@@ -27,4 +27,8 @@ public class LongTermNote {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public LongTermNote(String title) {
+        this.title = title;
+    }
 }
