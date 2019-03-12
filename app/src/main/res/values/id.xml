@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="shortPlans"/>
+    <item type="id" name="longPlans"/>
+    <item type="id" name="weather"/>
+    <item type="id" name="trash"/>
+    <item type="id" name="about"/>
+    <item type="id" name="help"/>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/shortPlans"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Short term plans" />
+        <item
+            android:id="@+id/longPlans"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Long term plans" />
+        <item
+            android:id="@+id/weather"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Weather Forecast" />
+        <item
+            android:id="@+id/trash"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Recycle Bin" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/about"
+                android:icon="@drawable/ic_menu_share"
+                android:title="About" />
+            <item
+                android:id="@+id/help"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Help" />
+        </menu>
+    </item>
+
+</menu>
