@@ -288,6 +288,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return notes;
     }
 
+    //find all short notes
+    public ArrayList<ShortTermNote> findAllTrash() {
+        ShortTermNote note;
+        ArrayList<ShortTermNote> notes = new ArrayList<>();
+        String query = "Select * From " + TABLE_SHORTNOTE + " WHERE " + COLUMN_SHORTNOTE_ISDEAD + " = " + DELETED;
+
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                note = new ShortTermNote();
+                note.setId(cursor.getInt(0));
+                note.setTitle(cursor.getString(1));
+                note.setContent(cursor.getString(2));
+                note.setDeadline(cursor.getString(3));
+                note.setIsDeleted(cursor.getInt(4));
+                note.setLongNoteId(cursor.getInt(5));
+
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return notes;
+    }
 
     //find urgent notes
     public ArrayList<ShortTermNote> findUrgentNotes() {
