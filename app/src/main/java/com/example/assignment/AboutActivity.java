@@ -18,8 +18,7 @@ public class AboutActivity extends AppCompatActivity {
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
-
-                .setDescription("This is demo version")
+                .setImage(R.drawable.asap_logo)
                 .addItem(new Element().setTitle("Versiom 1.0"))
                 .addItem(adsElement)
                 .addGroup("Contact us:")
