@@ -21,7 +21,8 @@
             android:name=".ViewShortPlanDetail"
             android:label="@string/title_activity_view_short_plan_detail"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HelpActivity" />
+        <activity android:name=".HelpActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".AboutActivity"
             android:label="About" />
