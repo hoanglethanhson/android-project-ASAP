@@ -1,14 +1,21 @@
 package com.example.assignment.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.assignment.Entity.ShortTermNote;
+import com.example.assignment.MainActivity;
 import com.example.assignment.R;
+import com.example.assignment.ViewLongPlansActivity;
+import com.example.assignment.ViewShortPlansActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +23,9 @@ import java.util.List;
 public class ExpandableLongPlanAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHashMap;
+    private HashMap<String, List<ShortTermNote>> listHashMap;
 
-    public ExpandableLongPlanAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
+    public ExpandableLongPlanAdapter(Context context, List<String> listDataHeader, HashMap<String, List<ShortTermNote>> listHashMap) {
         this.context = context;
         this.listDataHeader = listDataHeader;
         this.listHashMap = listHashMap;
@@ -61,27 +68,28 @@ public class ExpandableLongPlanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+        final String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_longplan_group, null);
 
 
         }
-        TextView lblListHeaderLongPlan = convertView.findViewById(R.id.lblListLongPlanHeader);
+        final TextView lblListHeaderLongPlan = convertView.findViewById(R.id.lblListLongPlanHeader);
         lblListHeaderLongPlan.setText(headerTitle);
+
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final String childText = (String) getChild(groupPosition, childPosition);
+        final ShortTermNote childShortTermNote = (ShortTermNote) getChild(groupPosition, childPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_longplan_item, null);
         }
         TextView txtChild = convertView.findViewById(R.id.lblListLongPlanItem);
-        txtChild.setText(childText);
+        txtChild.setText(childShortTermNote.getTitle());
 
 
         return convertView;
@@ -89,6 +97,6 @@ public class ExpandableLongPlanAdapter extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 }

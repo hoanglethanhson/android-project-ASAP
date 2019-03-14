@@ -4,19 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="20dip"
-    android:background="@color/about_item_text_color"
+    android:layout_height="wrap_content"
+    android:background="@color/about_facebook_color"
     android:orientation="vertical"
-    android:padding="0dp">
+    android:padding="0dp"
+    android:layout_margin="0dp">
 
-    <TextView
-        android:id="@+id/lblListLongPlanHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:textColor="@android:color/white"
-        android:textSize="16dip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblListLongPlanHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:padding="16dip"
+            android:textColor="@android:color/white"
+            android:textSize="16dip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
 </LinearLayout>

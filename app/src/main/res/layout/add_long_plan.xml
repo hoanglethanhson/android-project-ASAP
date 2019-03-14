@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+<TextView
+    android:textSize="25dp"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:text="Add new Long Plan "
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+    <EditText
+        android:layout_marginTop="15dp"
+        android:hint="Enter new Long Plan"
+        android:id="@+id/editAddLong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="Cancel"
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/btnAdd"/>
+    </LinearLayout>
+</LinearLayout>

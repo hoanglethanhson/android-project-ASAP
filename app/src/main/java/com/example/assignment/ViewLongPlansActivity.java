@@ -1,5 +1,7 @@
 package com.example.assignment;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,8 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
+import android.widget.TwoLineListItem;
 
 import com.example.assignment.Adapter.ExpandableLongPlanAdapter;
 import com.example.assignment.DBHandler.DatabaseHandler;
@@ -23,7 +30,7 @@ public class ViewLongPlansActivity extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private ExpandableListView listView;
     private List<String> listDataHeader;
-    private HashMap<String, List<String>> listHash;
+    private HashMap<String, List<ShortTermNote>> listHash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +53,60 @@ public class ViewLongPlansActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                final Dialog dialog = new Dialog(ViewLongPlansActivity.this);
+                dialog.setTitle("Add new Long Plan");
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.add_long_plan);
+                final EditText txtLongPlanTitle = dialog.findViewById(R.id.editAddLong);
+                Button btnAdd = dialog.findViewById(R.id.btnAdd);
+                Button btnCancel = dialog.findViewById(R.id.btnCancel);
+                btnAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String title = txtLongPlanTitle.getText().toString();
+                        DatabaseHandler databaseHandler = new DatabaseHandler(ViewLongPlansActivity.this);
+                        LongTermNote longTermNote = new LongTermNote(title);
+                        databaseHandler.addLongTermNote(longTermNote);
+                        dialog.cancel();
+                        startActivity(getIntent());
+
+
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
+
             }
         });
+
+        listView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Intent intent = new Intent(ViewLongPlansActivity.this, ViewLongPlanDetail.class);
+                intent.putExtra("longplan",listDataHeader.get(groupPosition));
+                startActivity(intent);
+                return false;
+            }
+        });
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if(listHash.get(listDataHeader.get(groupPosition)).size()==0){
+                    Intent intent = new Intent(ViewLongPlansActivity.this, ViewLongPlanDetail.class);
+                    intent.putExtra("longplan",listDataHeader.get(groupPosition));
+                    startActivity(intent);
+                }
+                return  false;
+            }
+        });
+
     }
 
     @Override
@@ -70,7 +127,7 @@ public class ViewLongPlansActivity extends AppCompatActivity {
 
 
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
-        /*LongTermNote dummyLong1 = new LongTermNote("Thi 7.5 Ielts");
+      /*  LongTermNote dummyLong1 = new LongTermNote("Thi 7.5 Ielts");
         LongTermNote dummyLong2 = new LongTermNote("Take a tour to HCM City");
         LongTermNote dummyLong3 = new LongTermNote("Go to the universe");
         databaseHandler.addLongTermNote(dummyLong1);
@@ -97,11 +154,9 @@ public class ViewLongPlansActivity extends AppCompatActivity {
         for (LongTermNote longNote : longTermNoteList) {
             listDataHeader.add(longNote.getTitle());
             List<ShortTermNote> shortNoteList = databaseHandler.findShortByLong(longNote.getId());
-            List<String> shortNoteListToString = new ArrayList<>();
-            for (ShortTermNote shortTermNote : shortNoteList) {
-                shortNoteListToString.add(shortTermNote.toString());
-            }
-            listHash.put(listDataHeader.get(i), shortNoteListToString);
+
+
+            listHash.put(listDataHeader.get(i), shortNoteList);
             i++;
         }
 
