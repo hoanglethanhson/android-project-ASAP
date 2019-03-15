@@ -32,24 +32,33 @@ public class ViewTrashActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         updateListTrash();
-        findViewById(R.id.listTrash).setOnLongClickListener(new View.OnLongClickListener() {
+        ListView listTrash  = findViewById(R.id.listTrash);
+        listTrash.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                notice(v);
-                return true;
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                notice(view, position);
+                return false;
             }
         });
     }
 
-    private void notice(View v) {
+    private void notice(View v, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Confirmation");
         final TextView message = new TextView(v.getContext());
         message.setText("Do you want to restore this?");
         builder.setView(message);
+
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                DatabaseHandler databaseHandler = new DatabaseHandler(ViewTrashActivity.this);
+                ArrayList<ShortTermNote> notes = databaseHandler.findAllTrash();
+                int itemId = notes.get(position).getId();
+                databaseHandler.restorePlan(itemId);
+                Intent intent = new Intent(ViewTrashActivity.this, MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Restore from Recycle Bin successfully", Toast.LENGTH_LONG).show();
             }
         });
 

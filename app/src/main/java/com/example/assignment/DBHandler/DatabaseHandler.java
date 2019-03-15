@@ -373,7 +373,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase database = getWritableDatabase();
         return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
+    }
 
+    //restore item from trash
+    public int restorePlan(int id) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SHORTNOTE_ISDEAD, NOT_DELETED);
+
+        SQLiteDatabase database = getWritableDatabase();
+        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
     }
 
     public ArrayList<LongTermNote> findAllLongNotes() {
