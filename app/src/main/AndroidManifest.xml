@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AddShortOfLongPlanActivity"
+            android:label="@string/title_activity_add_short_of_long_plan"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".AddShortPlanActivity"
             android:label="@string/title_activity_add_short_plan"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -8,6 +8,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +29,9 @@ import java.util.ArrayList;
 
 public class ViewLongPlanDetail extends AppCompatActivity {
     private static final int SHORT_MAIN_REQUEST_CODE = 101;
+
+    private ArrayList<ShortTermNote> notes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,25 +39,30 @@ public class ViewLongPlanDetail extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle==null){
+        if (bundle == null) {
             return;
         }
-        final String longTermPlanTitle= bundle.getString("longplan");
+        final String longTermPlanTitle = bundle.getString("longplan");
         TextView txtHeader = findViewById(R.id.txtLongPlanDetail);
         txtHeader.setText(longTermPlanTitle);
+        updateListView(longTermPlanTitle);
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(ViewLongPlanDetail.this, AddShortOfLongPlanActivity.class);
+                intent.putExtra("longplan", longTermPlanTitle);
+                startActivity(intent);
             }
         });
-        updateListView(longTermPlanTitle);
 
         //set onlclick event handler
         //set onclick handler for item
@@ -60,13 +71,9 @@ public class ViewLongPlanDetail extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(ViewLongPlanDetail.this, ViewShortPlanDetail.class);
-//                TwoLineListItem twoLineListItem  =(TwoLineListItem) view;
-//                String firstLine = twoLineListItem.getText1().getText().toString();
-//                String[] words=firstLine.split("\\s");
-//                intent.putExtra("id", words[0]);
-//                startActivityForResult(intent, SHORT_MAIN_REQUEST_CODE);
-                //startActivity(intent);
+                Intent myIntent = new Intent(ViewLongPlanDetail.this, ViewShortPlanDetail.class);
+                myIntent.putExtra("id",String.valueOf(notes.get(position).getId()));
+                startActivityForResult(myIntent, SHORT_MAIN_REQUEST_CODE);
             }
         });
 
@@ -84,7 +91,7 @@ public class ViewLongPlanDetail extends AppCompatActivity {
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
         LongTermNote longTermNote = databaseHandler.findLongTermNote(longTitle);
         ListView listView = findViewById(R.id.listShortPlan);
-        final ArrayList<ShortTermNote> notes = databaseHandler.findShortByLong(longTermNote.getId());
+        notes = databaseHandler.findShortByLong(longTermNote.getId());
         if (notes.isEmpty()) {
             Toast.makeText(this.getApplicationContext(), "No task to display!", Toast.LENGTH_LONG).show();
         }
@@ -98,13 +105,13 @@ public class ViewLongPlanDetail extends AppCompatActivity {
 
                 TextView text = convertView.findViewById(R.id.tv_item_text);
                 ImageView check = convertView.findViewById(R.id.iv_checkmark);
-
                 text.setText(notes.get(position).getTitle());
                 if (notes.get(position).getIsComplete() == 1) {
                     check.setVisibility(View.VISIBLE);
                 } else {
                     check.setVisibility(View.INVISIBLE);
                 }
+
 
                 return convertView;
             }
@@ -113,5 +120,34 @@ public class ViewLongPlanDetail extends AppCompatActivity {
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+
+        switch (item.getItemId()) {
+            case R.id.itemDeleteLong:
+                Toast.makeText(ViewLongPlanDetail.this, "Delete Long", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.itemUpdateLong:
+                Toast.makeText(ViewLongPlanDetail.this, "Update Long", Toast.LENGTH_LONG).show();
+                return true;
+            case android.R.id.home:
+                finish();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.long_plan_menu, menu);
+        return true;
+    }
+
 
 }
