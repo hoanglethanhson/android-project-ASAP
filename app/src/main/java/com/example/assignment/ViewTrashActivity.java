@@ -28,6 +28,7 @@ public class ViewTrashActivity extends AppCompatActivity {
     private ArrayList<ShortTermNote> notes;
     private DatabaseHandler databaseHandler;
     private ListView listTrash;
+    private FloatingActionButton fabDelete, fabRevert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,27 +41,139 @@ public class ViewTrashActivity extends AppCompatActivity {
 
         //init data
         listTrash  = findViewById(R.id.listTrash);
+        fabDelete = findViewById(R.id.fabDelete);
+        fabRevert = findViewById(R.id.fabRevert);
         updateListTrash();
 
         //add event
         listTrash.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                notice(view, position);
+                revertOneItem(view, position);
                 return false;
+            }
+        });
+        listTrash.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                deleteOneItem(view,position);
+            }
+        });
+        fabRevert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                revertAll(view);
+            }
+        });
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteAll(view);
             }
         });
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
     }
 
-    private void notice(View v, final int position) {
+    private void deleteAll(View v) {
+        if (notes.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "NOTHING TO DELETE!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Confirmation");
         final TextView message = new TextView(v.getContext());
-        message.setText("Do you want to restore this?");
+        message.setText("\n\t\t\tDo you want to revert all?");
+        builder.setView(message);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for(ShortTermNote note : notes) {
+                    databaseHandler.deleteShortById(note.getId());
+                }
+                updateListTrash();
+                Toast.makeText(getApplicationContext(), "DELETE ALL SUCCESSFULLY!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void revertAll(View v) {
+
+        if (notes.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "NOTHING TO REVERT!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle("Confirmation");
+        final TextView message = new TextView(v.getContext());
+        message.setText("\n\t\t\tDo you want to revert all?");
+        builder.setView(message);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for(ShortTermNote note : notes) {
+                    databaseHandler.restorePlan(note.getId());
+                }
+                updateListTrash();
+                Toast.makeText(getApplicationContext(), "REVERT ALL SUCCESSFULLY!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void deleteOneItem(View v, final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle("Confirmation");
+        final TextView message = new TextView(v.getContext());
+        message.setText("\n\t\t\tDo you want to delete this?");
+        builder.setView(message);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int itemId = notes.get(position).getId();
+                databaseHandler.deleteShortById(itemId);
+                updateListTrash();
+                Toast.makeText(getApplicationContext(), "DELETE ITEM SUCCESSFULLY!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void revertOneItem(View v, final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle("Confirmation");
+        final TextView message = new TextView(v.getContext());
+        message.setText("\n\t\t\tDo you want to revert this?");
         builder.setView(message);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -68,9 +181,8 @@ public class ViewTrashActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 int itemId = notes.get(position).getId();
                 databaseHandler.restorePlan(itemId);
-                Intent intent = new Intent(ViewTrashActivity.this, MainActivity.class);
-                startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Restore from Recycle Bin successfully", Toast.LENGTH_LONG).show();
+                updateListTrash();
+                Toast.makeText(getApplicationContext(), "REVERT ITEM SUCCESSFULLY", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -107,6 +219,7 @@ public class ViewTrashActivity extends AppCompatActivity {
         listTrash.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
