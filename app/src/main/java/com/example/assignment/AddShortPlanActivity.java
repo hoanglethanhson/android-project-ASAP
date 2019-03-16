@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -45,7 +46,10 @@ public class AddShortPlanActivity extends AppCompatActivity implements DatePicke
         setContentView(R.layout.activity_add_short_plan);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
         ArrayList<LongTermNote> notes = databaseHandler.findAllLongNotes();
@@ -125,5 +129,14 @@ public class AddShortPlanActivity extends AppCompatActivity implements DatePicke
             Toast.makeText(this.getApplicationContext(), "Create note failed!", Toast.LENGTH_LONG).show();
 
         }
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
