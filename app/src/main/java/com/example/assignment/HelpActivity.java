@@ -31,7 +31,7 @@ public class HelpActivity extends AppCompatActivity {
         String[] questions = new String[]{
                 "How to create new long term plan?",
                 "How to add a short term plan?",
-                "How does the app notify me?"
+                "Do I have to pay for any extend function?"
         };
 
         List<String> question_list = new ArrayList<String>(Arrays.asList(questions));
