@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.refactor.lib.colordialog.ColorDialog;
+
 public class ViewLongPlansActivity extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
     private ExpandableListView listView;

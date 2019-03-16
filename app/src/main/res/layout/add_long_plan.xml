@@ -4,18 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-<TextView
-    android:textSize="25dp"
-    android:gravity="center"
-    android:textStyle="bold"
-    android:text="Add new Long Plan "
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:gravity="center"
+        android:text="Add new Long Plan "
+        android:textSize="30sp"
+        android:textStyle="bold" />
     <EditText
         android:layout_marginTop="15dp"
         android:hint="Enter new Long Plan"
         android:id="@+id/editAddLong"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="wrap_content" />
     <LinearLayout
         android:gravity="center"
