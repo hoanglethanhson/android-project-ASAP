@@ -1,11 +1,13 @@
 package com.example.assignment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -15,6 +17,7 @@ import java.util.List;
 
 public class HelpActivity extends AppCompatActivity {
 
+    Intent intent;
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,25 @@ public class HelpActivity extends AppCompatActivity {
             }
         };
         listView.setAdapter(arrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    switch(position){
+                        case 0:
+                            intent = new Intent(view.getContext(),Question1.class);
+                            startActivity(intent);
+                            break;
+                        case 1:
+                            intent = new Intent(view.getContext(),Question2.class);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            intent = new Intent(view.getContext(),Question3.class);
+                            startActivity(intent);
+                    }
+            }
+        });
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
