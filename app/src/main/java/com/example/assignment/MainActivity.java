@@ -186,7 +186,8 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(MainActivity.this, ViewLongPlansActivity.class);
             startActivity(intent);
         } else if (id == R.id.weather) {
-            //TODO
+            intent = new Intent(MainActivity.this, WeatherActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.trash) {
             intent = new Intent(MainActivity.this, ViewTrashActivity.class);
