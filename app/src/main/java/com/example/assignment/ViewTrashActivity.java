@@ -45,17 +45,23 @@ public class ViewTrashActivity extends AppCompatActivity {
         listTrash.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                notice(view, position);
+                noticeRestore(view, position);
                 return false;
+            }
+        });
+        listTrash.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                noticeDelete(view, position);
             }
         });
     }
 
-    private void notice(View v, final int position) {
+    private void noticeRestore(View v, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Confirmation");
         final TextView message = new TextView(v.getContext());
-        message.setText("Do you want to restore this?");
+        message.setText("\n\t\t\tDo you want to restore this?");
         builder.setView(message);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -63,9 +69,34 @@ public class ViewTrashActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 int itemId = notes.get(position).getId();
                 databaseHandler.restorePlan(itemId);
-                Intent intent = new Intent(ViewTrashActivity.this, MainActivity.class);
-                startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Restore from Recycle Bin successfully", Toast.LENGTH_LONG).show();
+                updateListTrash();
+                Toast.makeText(getApplicationContext(), "Restore from Recycle Bin successfully!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void noticeDelete(View v, final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle("Confirmation");
+        final TextView message = new TextView(v.getContext());
+        message.setText("\n\t\t\tDo you want to delete this?");
+        builder.setView(message);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int itemId = notes.get(position).getId();
+                databaseHandler.deleteShortById(itemId);
+                updateListTrash();
+                Toast.makeText(getApplicationContext(), "Delete from Recycle Bin successfully!", Toast.LENGTH_LONG).show();
             }
         });
 
