@@ -26,6 +26,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/about_youtube_color"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
     <include layout="@layout/content_view_trash" />
 
 </android.support.design.widget.CoordinatorLayout>
