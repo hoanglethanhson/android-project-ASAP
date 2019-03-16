@@ -28,6 +28,7 @@ import com.example.assignment.DBHandler.DatabaseHandler;
 import com.example.assignment.Entity.LongTermNote;
 import com.example.assignment.Entity.ShortTermNote;
 
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity
                 pullToRefresh.setRefreshing(false);
             }
         });
+
     }
 
     public void updateListView() {
@@ -143,7 +145,7 @@ public class MainActivity extends AppCompatActivity
                 .setPositiveButton("Yes",new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.this.finish();
+                        System.exit(1);
                     }
                 })
                 .setNegativeButton("No",null);

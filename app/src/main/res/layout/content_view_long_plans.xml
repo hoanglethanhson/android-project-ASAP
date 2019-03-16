@@ -7,6 +7,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ViewLongPlansActivity"
     tools:showIn="@layout/activity_view_long_plans">
+
+
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="159dp"
@@ -17,11 +20,20 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="All Long Plan Notes"
-        app:layout_constraintBottom_toTopOf="@+id/lvExpLongPlan"
+        app:layout_constraintBottom_toTopOf="@+id/refresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.142" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="322dp"
+        android:layout_marginBottom="80dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
     <ExpandableListView
         android:id="@+id/lvExpLongPlan"
@@ -39,7 +51,7 @@
         app:layout_constraintVertical_bias="0.1">
     </ExpandableListView>
 
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 

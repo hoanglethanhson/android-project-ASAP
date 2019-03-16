@@ -51,6 +51,7 @@ public class ViewLongPlanDetail extends AppCompatActivity {
         final String longTermPlanTitle = bundle.getString("longplan");
         TextView txtHeader = findViewById(R.id.txtLongPlanDetail);
         txtHeader.setText(longTermPlanTitle);
+        setTitle(longTermPlanTitle);
         updateListView(longTermPlanTitle);
 
 

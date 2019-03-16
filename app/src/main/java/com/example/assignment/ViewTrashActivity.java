@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -45,23 +46,21 @@ public class ViewTrashActivity extends AppCompatActivity {
         listTrash.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                noticeRestore(view, position);
+                notice(view, position);
                 return false;
             }
         });
-        listTrash.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                noticeDelete(view, position);
-            }
-        });
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
-    private void noticeRestore(View v, final int position) {
+    private void notice(View v, final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Confirmation");
         final TextView message = new TextView(v.getContext());
-        message.setText("\n\t\t\tDo you want to restore this?");
+        message.setText("Do you want to restore this?");
         builder.setView(message);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -69,34 +68,9 @@ public class ViewTrashActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 int itemId = notes.get(position).getId();
                 databaseHandler.restorePlan(itemId);
-                updateListTrash();
-                Toast.makeText(getApplicationContext(), "Restore from Recycle Bin successfully!", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.show();
-    }
-
-    private void noticeDelete(View v, final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-        builder.setTitle("Confirmation");
-        final TextView message = new TextView(v.getContext());
-        message.setText("\n\t\t\tDo you want to delete this?");
-        builder.setView(message);
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                int itemId = notes.get(position).getId();
-                databaseHandler.deleteShortById(itemId);
-                updateListTrash();
-                Toast.makeText(getApplicationContext(), "Delete from Recycle Bin successfully!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ViewTrashActivity.this, MainActivity.class);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Restore from Recycle Bin successfully", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -132,5 +106,14 @@ public class ViewTrashActivity extends AppCompatActivity {
 
         listTrash.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
