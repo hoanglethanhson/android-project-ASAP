@@ -268,7 +268,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<ShortTermNote> findAllShortNotes() {
         ShortTermNote note;
         ArrayList<ShortTermNote> notes = new ArrayList<>();
-        String query = "Select * From " + TABLE_SHORTNOTE;
+        String query = "Select * From " + TABLE_SHORTNOTE + " Where " + COLUMN_SHORTNOTE_ISDEAD + " = " + NOT_DELETED;
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -320,7 +320,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<ShortTermNote> findUrgentNotes() {
         ShortTermNote note;
         ArrayList<ShortTermNote> notes = new ArrayList<>();
-        String query = "Select *  From  " + TABLE_SHORTNOTE + " Order by " + COLUMN_SHORTNOTE_DEADLINE;
+        String query = "Select *  From  " + TABLE_SHORTNOTE + " Where " + COLUMN_SHORTNOTE_ISDEAD + " = " + NOT_DELETED + " Order by " + COLUMN_SHORTNOTE_DEADLINE ;
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);

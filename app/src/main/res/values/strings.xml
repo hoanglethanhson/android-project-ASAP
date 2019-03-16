@@ -43,4 +43,11 @@
     <string name="weather_thunder" translatable="false">&#xf01e;</string>
     <string name="weather_drizzle" translatable="false">&#xf01c;</string>
     <string name="temperature">Temperature</string>
+
+    <!--Help-->
+    <string name="answer10">On the main screen, click Menu </string>
+    <string name="answer11">Click "Long term Plans" </string>
+    <string name="answer12">On Long Plans screen, click </string>
+    <string name="answer13">Type your long plan name and click add.</string>
+
 </resources>
