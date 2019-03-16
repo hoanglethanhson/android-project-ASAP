@@ -136,6 +136,8 @@ public class ViewLongPlansActivity extends AppCompatActivity {
         listHash = new HashMap<>();
 
 
+
+
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
       /*  LongTermNote dummyLong1 = new LongTermNote("Thi 7.5 Ielts");
         LongTermNote dummyLong2 = new LongTermNote("Take a tour to HCM City");
