@@ -75,7 +75,6 @@ public class ViewTrashActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
     }
 
     private void deleteAll(View v) {
@@ -83,24 +82,19 @@ public class ViewTrashActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "NOTHING TO DELETE!", Toast.LENGTH_LONG).show();
             return;
         }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Confirmation");
         final TextView message = new TextView(v.getContext());
-        message.setText("\n\t\t\tDo you want to revert all?");
+        message.setText("\n\t\t\tDo you want to DELETE all?");
         builder.setView(message);
-
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                for(ShortTermNote note : notes) {
-                    databaseHandler.deleteShortById(note.getId());
-                }
+                databaseHandler.deleteAllBin();
                 updateListTrash();
                 Toast.makeText(getApplicationContext(), "DELETE ALL SUCCESSFULLY!", Toast.LENGTH_LONG).show();
             }
         });
-
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -111,29 +105,24 @@ public class ViewTrashActivity extends AppCompatActivity {
     }
 
     private void revertAll(View v) {
-
         if (notes.isEmpty()) {
             Toast.makeText(getApplicationContext(), "NOTHING TO REVERT!", Toast.LENGTH_LONG).show();
             return;
         }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Confirmation");
         final TextView message = new TextView(v.getContext());
-        message.setText("\n\t\t\tDo you want to revert all?");
+        message.setText("\n\t\t\tDo you want to REVERT all?");
         builder.setView(message);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                for(ShortTermNote note : notes) {
-                    databaseHandler.restorePlan(note.getId());
-                }
+                databaseHandler.revertAllBin();
                 updateListTrash();
                 Toast.makeText(getApplicationContext(), "REVERT ALL SUCCESSFULLY!", Toast.LENGTH_LONG).show();
             }
         });
-
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

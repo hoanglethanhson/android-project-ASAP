@@ -384,6 +384,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
     }
 
+    public int deleteAllBin(){
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_SHORTNOTE, COLUMN_SHORTNOTE_ISDEAD + " = ?" , new String[]{String.valueOf(DELETED)});
+    }
+
+    public int revertAllBin(){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SHORTNOTE_ISDEAD, NOT_DELETED);
+
+        SQLiteDatabase database = getWritableDatabase();
+        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ISDEAD + " = ?" , new String[]{String.valueOf(DELETED)});
+    }
+
     public ArrayList<LongTermNote> findAllLongNotes() {
         LongTermNote note;
         ArrayList<LongTermNote> notes = new ArrayList<>();
