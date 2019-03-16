@@ -197,6 +197,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
         ShortTermNote note = new ShortTermNote();
         note.setTitle(title.getText().toString());
         note.setContent(content.getText().toString());
+        note.setIsDeleted(NOT_DELETED);
         note.setDeadline(deadline.getText().toString().trim() + " " + deadTime.getText().toString().trim());
         if (checkBox.isChecked()) {
             note.setIsComplete(COMPLETE);
