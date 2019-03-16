@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -104,6 +105,15 @@ public class ViewLongPlansActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 return  false;
+            }
+        });
+
+        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.refresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData(); // your code
+                pullToRefresh.setRefreshing(false);
             }
         });
 
