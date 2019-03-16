@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class ViewLongPlanDetail extends AppCompatActivity {
     private static final int SHORT_MAIN_REQUEST_CODE = 101;
-
+    String longTermPlanTitle;
     private ArrayList<ShortTermNote> notes;
 
     @Override
@@ -48,7 +48,7 @@ public class ViewLongPlanDetail extends AppCompatActivity {
         if (bundle == null) {
             return;
         }
-        final String longTermPlanTitle = bundle.getString("longplan");
+        longTermPlanTitle = bundle.getString("longplan");
         TextView txtHeader = findViewById(R.id.txtLongPlanDetail);
         txtHeader.setText(longTermPlanTitle);
         setTitle(longTermPlanTitle);
@@ -106,7 +106,7 @@ public class ViewLongPlanDetail extends AppCompatActivity {
 
                 TextView text = convertView.findViewById(R.id.tv_item_text);
                 ImageView check = convertView.findViewById(R.id.iv_checkmark);
-                text.setText(notes.get(position).getTitle());
+                text.setText(notes.get(position).getTitle()+"Is Dead: "+ notes.get(position).getIsDeleted());
                 if (notes.get(position).getIsComplete() == 1) {
                     check.setVisibility(View.VISIBLE);
                 } else {

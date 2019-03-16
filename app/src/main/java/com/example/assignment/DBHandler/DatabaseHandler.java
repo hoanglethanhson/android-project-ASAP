@@ -194,7 +194,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ShortTermNote note;
         ArrayList<ShortTermNote> notes = new ArrayList<>();
         String query = "Select * From " + TABLE_SHORTNOTE
-                + " Where " + COLUMN_SHORTNOTE_LONGNOTEID + " = " + String.valueOf(longTermId) + "";
+                + " Where " + COLUMN_SHORTNOTE_LONGNOTEID + " = " + longTermId
+                + " and "
+                + COLUMN_SHORTNOTE_ISDEAD+ " = " + NOT_DELETED;
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
