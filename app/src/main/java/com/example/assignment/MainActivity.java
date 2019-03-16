@@ -28,6 +28,7 @@ import com.example.assignment.DBHandler.DatabaseHandler;
 import com.example.assignment.Entity.LongTermNote;
 import com.example.assignment.Entity.ShortTermNote;
 
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity
                 pullToRefresh.setRefreshing(false);
             }
         });
+
     }
 
     public void updateListView() {

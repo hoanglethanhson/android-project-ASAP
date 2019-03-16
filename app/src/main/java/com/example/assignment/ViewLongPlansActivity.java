@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -25,6 +26,8 @@ import com.example.assignment.Entity.ShortTermNote;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import cn.refactor.lib.colordialog.ColorDialog;
 
 public class ViewLongPlansActivity extends AppCompatActivity {
     private ExpandableListAdapter listAdapter;
@@ -107,6 +110,15 @@ public class ViewLongPlansActivity extends AppCompatActivity {
             }
         });
 
+        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.refresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData(); // your code
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
     }
 
     @Override
@@ -124,6 +136,8 @@ public class ViewLongPlansActivity extends AppCompatActivity {
 
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
+
+
 
 
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
