@@ -24,15 +24,24 @@ import java.util.ArrayList;
 
 public class ViewTrashActivity extends AppCompatActivity {
 
+    private ArrayList<ShortTermNote> notes;
+    private DatabaseHandler databaseHandler;
+    private ListView listTrash;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Plan Bin");
         setContentView(R.layout.activity_view_trash);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        databaseHandler  = new DatabaseHandler(this);
 
+        //init data
+        listTrash  = findViewById(R.id.listTrash);
         updateListTrash();
-        ListView listTrash  = findViewById(R.id.listTrash);
+
+        //add event
         listTrash.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -52,8 +61,6 @@ public class ViewTrashActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                DatabaseHandler databaseHandler = new DatabaseHandler(ViewTrashActivity.this);
-                ArrayList<ShortTermNote> notes = databaseHandler.findAllTrash();
                 int itemId = notes.get(position).getId();
                 databaseHandler.restorePlan(itemId);
                 Intent intent = new Intent(ViewTrashActivity.this, MainActivity.class);
@@ -72,9 +79,7 @@ public class ViewTrashActivity extends AppCompatActivity {
     }
 
     private void updateListTrash() {
-        DatabaseHandler databaseHandler = new DatabaseHandler(this);
-        ListView listView = findViewById(R.id.listTrash);
-        final ArrayList<ShortTermNote> notes = databaseHandler.findAllTrash();
+        notes = databaseHandler.findAllTrash();
         if (notes.isEmpty()) {
             Toast.makeText(this.getApplicationContext(), "No trash to display!", Toast.LENGTH_LONG).show();
         }
@@ -94,7 +99,7 @@ public class ViewTrashActivity extends AppCompatActivity {
             }
         };
 
-        listView.setAdapter(adapter);
+        listTrash.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 }
