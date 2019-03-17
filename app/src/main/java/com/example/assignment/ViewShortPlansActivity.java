@@ -65,6 +65,7 @@ public class ViewShortPlansActivity extends AppCompatActivity {
                 String firstLine = twoLineListItem.getText1().getText().toString();
                 String[] words=firstLine.split("\\s");
                 intent.putExtra("id", words[0]);
+                intent.putExtra("from_activity","viewshortplanactivity");
                 startActivityForResult(intent, SHORT_MAIN_REQUEST_CODE);
                 //startActivity(intent);
             }
@@ -100,7 +101,7 @@ public class ViewShortPlansActivity extends AppCompatActivity {
 
                 text1.setText(notes.get(position).getId() + " " + notes.get(position).getTitle());
                 text2.setText(notes.get(position).getContent());
-
+                text1.setVisibility(View.INVISIBLE);
                 return view;
             }
         };

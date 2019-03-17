@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity
 
                 text1.setText(notes.get(position).getId() + " " + notes.get(position).getTitle());
                 text2.setText(notes.get(position).getContent());
+//                text1.setVisibility(View.INVISIBLE);
 
                 return view;
             }

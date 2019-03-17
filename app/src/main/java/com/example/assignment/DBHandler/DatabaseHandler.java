@@ -434,4 +434,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return result;
     }
+    public int updateLongNote(int id, LongTermNote note) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SHORTNOTE_TITLE, note.getTitle());
+
+        SQLiteDatabase database = getWritableDatabase();
+        return database.update(TABLE_LONGNOTE, values, COLUMN_LONGNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
+    }
 }

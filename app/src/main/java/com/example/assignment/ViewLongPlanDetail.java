@@ -1,5 +1,6 @@
 package com.example.assignment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,8 +52,6 @@ public class ViewLongPlanDetail extends AppCompatActivity {
             return;
         }
         longTermPlanTitle = bundle.getString("longplan");
-        TextView txtHeader = findViewById(R.id.txtLongPlanDetail);
-        txtHeader.setText(longTermPlanTitle);
         setTitle(longTermPlanTitle);
         updateListView(longTermPlanTitle);
 
@@ -73,7 +74,9 @@ public class ViewLongPlanDetail extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent myIntent = new Intent(ViewLongPlanDetail.this, ViewShortPlanDetail.class);
-                myIntent.putExtra("id",String.valueOf(notes.get(position).getId()));
+                myIntent.putExtra("id", String.valueOf(notes.get(position).getId()));
+                myIntent.putExtra("from_activity","viewlongplandetail");
+                myIntent.putExtra("longplan",longTermPlanTitle);
                 startActivityForResult(myIntent, SHORT_MAIN_REQUEST_CODE);
             }
         });
@@ -134,7 +137,41 @@ public class ViewLongPlanDetail extends AppCompatActivity {
                 Toast.makeText(ViewLongPlanDetail.this, "Delete Long", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemUpdateLong:
-                Toast.makeText(ViewLongPlanDetail.this, "Update Long", Toast.LENGTH_LONG).show();
+                final Dialog dialog = new Dialog(ViewLongPlanDetail.this);
+                dialog.setTitle("Update Title");
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.update_long_plan);
+                final EditText txtUpdate = dialog.findViewById(R.id.editUpdate);
+                txtUpdate.setText(longTermPlanTitle);
+                Button btnUpdate = dialog.findViewById(R.id.btnUpdate);
+                Button btnCancel = dialog.findViewById(R.id.btnCancel);
+                btnUpdate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String title = txtUpdate.getText().toString();
+                        DatabaseHandler databaseHandler = new DatabaseHandler(ViewLongPlanDetail.this);
+                        LongTermNote longTermNote = databaseHandler.findLongTermNote(longTermPlanTitle);
+                        int id = longTermNote.getId();
+                        longTermNote = new LongTermNote(title);
+                        databaseHandler.updateLongNote(id, longTermNote);
+                        Intent intent = new Intent(ViewLongPlanDetail.this, ViewLongPlanDetail.class);
+                        intent.putExtra("longplan", title);
+                        startActivity(intent);
+
+
+                        dialog.cancel();
+
+
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+                dialog.show();
                 return true;
             case android.R.id.home:
                 finish();

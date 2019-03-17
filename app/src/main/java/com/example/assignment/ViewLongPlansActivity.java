@@ -40,7 +40,7 @@ public class ViewLongPlansActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_long_plans);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("List of long term tasks");
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -119,7 +119,7 @@ public class AddShortOfLongPlanActivity extends AppCompatActivity implements Dat
         if (result != -1) {
             Toast.makeText(this.getApplicationContext(), "Create note successfully!", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(AddShortOfLongPlanActivity.this,ViewLongPlanDetail.class);
-            intent.putExtra("longPlan",longPlanTitle);
+            intent.putExtra("longplan",longPlanTitle);
             startActivity(intent);
         } else {
             Toast.makeText(this.getApplicationContext(), "Create note failed!", Toast.LENGTH_LONG).show();

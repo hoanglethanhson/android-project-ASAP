@@ -31,7 +31,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
 
     String dateTime;
 
-
+    Bundle bundle;
 
     private int day;
     private int month;
@@ -65,7 +65,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         if (bundle == null) {
             return;
         }
@@ -150,7 +150,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
     public void onDeadTimeClick(View view) {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
 
-        TimePickerDialog dialog = new TimePickerDialog( this, this,
+        TimePickerDialog dialog = new TimePickerDialog(this, this,
                 calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), true);
         dialog.show();
 
@@ -225,7 +225,17 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
             public void onClick(DialogInterface dialog, int which) {
                 DatabaseHandler databaseHandler = new DatabaseHandler(ViewShortPlanDetail.this);
                 databaseHandler.moveTrashShort(id);
-                backToMain();
+
+                String previousActivity = bundle.getString("from_activity");
+                if (previousActivity.equalsIgnoreCase("viewlongplandetail")) {
+                    backToLongPlanDetail();
+                }
+                else if(previousActivity.equalsIgnoreCase("viewshortplanactivity")){
+                    backToShortPlanActivity();
+                }
+                else {
+                    backToMain();
+                }
                 Toast.makeText(getApplicationContext(), "Move to Recycle Bin successfully", Toast.LENGTH_LONG).show();
             }
         });
@@ -238,6 +248,20 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
         });
 
         builder.show();
+    }
+
+    private void backToShortPlanActivity(){
+
+        Intent intent = new Intent(ViewShortPlanDetail.this, ViewShortPlansActivity.class);
+
+        startActivity(intent);
+    }
+
+    private void backToLongPlanDetail() {
+        String longPlanTitle = bundle.getString("longplan");
+        Intent intent = new Intent(ViewShortPlanDetail.this, ViewLongPlanDetail.class);
+        intent.putExtra("longplan", longPlanTitle);
+        startActivity(intent);
     }
 
     //go back to MainActivity
@@ -260,6 +284,7 @@ public class ViewShortPlanDetail extends AppCompatActivity implements DatePicker
         }
         super.finish();
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
