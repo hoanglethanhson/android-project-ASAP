@@ -45,9 +45,18 @@
     <string name="temperature">Temperature</string>
 
     <!--Help-->
+    <string name="ques1">How to create new long term plan?</string>
+    <string name="ques2">How to add a short term plan?</string>
+    <string name="ques3">Do I have to pay for any extend function?</string>
     <string name="answer10">On the main screen, click Menu </string>
     <string name="answer11">Click "Long term Plans" </string>
     <string name="answer12">On Long Plans screen, click </string>
     <string name="answer13">Type your long plan name and click add.</string>
+    <string name="answer20">Click "Short term Plans" </string>
+    <string name="answer21">On Short Plans screen, click </string>
+    <string name="answer22">Input necessary fields and select long term plan.</string>
+    <string name="answer23">Click on Create button </string>
+    <string name="answer30">The answer is no. You do not have to pay any fee for
+        any function in this app. It is completely free. Enjoy! </string>
 
 </resources>

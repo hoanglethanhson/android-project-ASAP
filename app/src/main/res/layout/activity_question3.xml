@@ -6,15 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".Question3">
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="330dp"
+        android:layout_height="290dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:editable="false"
+        android:focusable="false"
+        android:ems="10"
+        android:fontFamily="@font/dosis_regular"
+        android:inputType="textMultiLine"
+        android:text="@string/answer30"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.176" />
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="356dp"
-        android:text="question3"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/ques3"
+        android:fontFamily="@font/oswald_regular"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textColor="@color/about_github_color"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
