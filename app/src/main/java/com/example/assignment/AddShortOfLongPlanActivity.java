@@ -43,6 +43,7 @@ public class AddShortOfLongPlanActivity extends AppCompatActivity implements Dat
         setContentView(R.layout.activity_add_short_of_long_plan);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Add new Short Term Plan");
         bundle = getIntent().getExtras();
         if (bundle == null) {
             return;

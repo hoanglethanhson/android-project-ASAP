@@ -20,7 +20,7 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textSize="24sp"
-        android:text="All Long Plan Notes"
+        android:text="All Long Term Plans"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/refresh"
         app:layout_constraintEnd_toEndOf="parent"
