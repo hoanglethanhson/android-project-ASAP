@@ -132,7 +132,7 @@ public abstract class GenericRequestTask extends AsyncTask<String, String, TaskO
                 break;
             }
             case BAD_RESPONSE: {
-                Snackbar.make(activity.findViewById(android.R.id.content), context.getString(R.string.msg_connection_problem), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(activity.findViewById(android.R.id.content), context.getString(R.string.city_not_found), Snackbar.LENGTH_LONG).show();
                 break;
             }
             case IO_EXCEPTION: {

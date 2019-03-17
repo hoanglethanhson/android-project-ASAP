@@ -14,7 +14,7 @@
             android:title="Long term plans" />
         <item
             android:id="@+id/weather"
-            android:icon="@drawable/weather"
+            android:icon="@drawable/cloud"
             android:title="Weather Forecast" />
         <item
             android:id="@+id/trash"
