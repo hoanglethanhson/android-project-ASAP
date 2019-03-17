@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/shortPlans"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/shortnote"
             android:title="Short term plans" />
         <item
             android:id="@+id/longPlans"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/longnote"
             android:title="Long term plans" />
         <item
             android:id="@+id/weather"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/weather"
             android:title="Weather Forecast" />
         <item
             android:id="@+id/trash"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/trash"
             android:title="Recycle Bin" />
     </group>
 
@@ -26,11 +26,11 @@
         <menu>
             <item
                 android:id="@+id/about"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/about"
                 android:title="About" />
             <item
                 android:id="@+id/help"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/help"
                 android:title="Help" />
         </menu>
     </item>
