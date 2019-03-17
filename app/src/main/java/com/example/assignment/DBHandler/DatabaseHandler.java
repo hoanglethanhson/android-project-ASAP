@@ -402,7 +402,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<LongTermNote> findAllLongNotes() {
         LongTermNote note;
         ArrayList<LongTermNote> notes = new ArrayList<>();
-        String query = "Select * From " + TABLE_LONGNOTE;
+        String query = "Select * From " + TABLE_LONGNOTE + " order by "+ COLUMN_LONGNOTE_ID + " desc";
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
