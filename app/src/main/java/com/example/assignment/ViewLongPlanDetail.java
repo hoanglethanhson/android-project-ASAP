@@ -111,7 +111,7 @@ public class ViewLongPlanDetail extends AppCompatActivity {
                 TextView txtContent = convertView.findViewById(R.id.tv_item_content);
                 ImageView check = convertView.findViewById(R.id.iv_checkmark);
                 txtTitle.setText(notes.get(position).getTitle());
-                txtTitle.setText(notes.get(position).getContent());
+                txtContent.setText(notes.get(position).getContent());
                 if (notes.get(position).getIsComplete() == 1) {
                     check.setVisibility(View.VISIBLE);
                 } else {

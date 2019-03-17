@@ -64,7 +64,7 @@ public class ViewShortPlansActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ViewShortPlansActivity.this, ViewShortPlanDetail.class);
-                TwoLineListItem twoLineListItem  =(TwoLineListItem) view;
+
                 intent.putExtra("id",String.valueOf(notes.get(position).getId()));
                 intent.putExtra("from_activity","viewshortplanactivity");
                 startActivityForResult(intent, SHORT_MAIN_REQUEST_CODE);
@@ -103,7 +103,7 @@ public class ViewShortPlansActivity extends AppCompatActivity {
                 TextView txtContent = convertView.findViewById(R.id.tv_item_content);
                 ImageView check = convertView.findViewById(R.id.iv_checkmark);
                 txtTitle.setText(notes.get(position).getTitle());
-                txtTitle.setText(notes.get(position).getContent());
+                txtContent.setText(notes.get(position).getContent());
                 if (notes.get(position).getIsComplete() == 1) {
                     check.setVisibility(View.VISIBLE);
                 } else {
