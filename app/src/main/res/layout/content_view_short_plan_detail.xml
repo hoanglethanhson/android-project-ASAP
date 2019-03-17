@@ -39,8 +39,8 @@
 
     <TextView
         android:id="@+id/textViewShortTitle"
-        android:layout_width="130dp"
-        android:layout_height="26dp"
+        android:layout_width="110dp"
+        android:layout_height="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="112dp"
         android:layout_marginEnd="8dp"
@@ -126,16 +126,16 @@
         android:id="@+id/btnEditTitle"
         android:layout_width="87dp"
         android:layout_height="39dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginStart="264dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
         android:drawableLeft="@android:drawable/ic_menu_edit"
         android:onClick="onTitleClick"
         android:text="Edit"
+        app:layout_constraintBottom_toTopOf="@+id/btnEditTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toEndOf="@+id/textViewShortTitle"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
