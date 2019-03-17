@@ -119,7 +119,7 @@ public class AddShortPlanActivity extends AppCompatActivity implements DatePicke
         note.setIsComplete(NOT_COMPLETE);
         note.setIsDeleted(NOT_DELETED);
 
-        note.setLongNoteId(longNote.getId());
+        note.setLongNoteId(-1);
 
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
         long result = databaseHandler.addShortTermNote(note);

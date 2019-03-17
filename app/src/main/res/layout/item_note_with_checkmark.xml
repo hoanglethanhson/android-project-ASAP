@@ -14,15 +14,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_item_text"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="This is some demo text"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_toLeftOf="@id/iv_checkmark"
-                android:layout_centerVertical="true"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_toLeftOf="@id/iv_checkmark">
+
+                <TextView
+                    android:id="@+id/tv_item_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="This is some demo text"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_item_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textStyle="normal"
+                    android:text="TextView" />
+            </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/iv_checkmark"

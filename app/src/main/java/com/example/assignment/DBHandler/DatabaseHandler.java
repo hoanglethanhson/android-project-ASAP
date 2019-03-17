@@ -100,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_SHORTNOTE_TITLE, note.getTitle());
         values.put(COLUMN_SHORTNOTE_CONTENT, note.getContent());
         values.put(COLUMN_SHORTNOTE_DEADLINE, note.getDeadline());
-        values.put(COLUMN_SHORTNOTE_ISDEAD, note.getIsDeleted());
+        values.put(COLUMN_SHORTNOTE_ISDEAD, NOT_DELETED);
         values.put(COLUMN_SHORTNOTE_ISCOMPLETE, NOT_COMPLETE);
         values.put(COLUMN_SHORTNOTE_LONGNOTEID, NOT_BELONG);
 
@@ -196,7 +196,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query = "Select * From " + TABLE_SHORTNOTE
                 + " Where " + COLUMN_SHORTNOTE_LONGNOTEID + " = " + longTermId
                 + " and "
-                + COLUMN_SHORTNOTE_ISDEAD+ " = " + NOT_DELETED;
+                + COLUMN_SHORTNOTE_ISDEAD + " = " + NOT_DELETED;
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
@@ -224,7 +224,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (note != null) {
             SQLiteDatabase db = getWritableDatabase();
             int result = db.delete(TABLE_SHORTNOTE, COLUMN_SHORTNOTE_ID + " = ?", new String[]{String.valueOf(note.getId())});
-            return  result;
+            return result;
         }
         return 0;
     }
@@ -235,7 +235,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (note != null) {
             SQLiteDatabase db = getWritableDatabase();
             int result = db.delete(TABLE_SHORTNOTE, COLUMN_SHORTNOTE_ID + " = ?", new String[]{String.valueOf(note.getId())});
-            return  result;
+            return result;
         }
         return 0;
     }
@@ -249,7 +249,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
             ArrayList<ShortTermNote> shortNotes = findShortByLong(note.getId());
-            String [] shortNoteIds = new String[shortNotes.size()];
+            String[] shortNoteIds = new String[shortNotes.size()];
             int i = 0;
             for (ShortTermNote shortTermNote : shortNotes) {
                 shortNoteIds[i] = String.valueOf(shortTermNote.getId());
@@ -260,7 +260,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             return longResult;
         }
-        return 0 ;
+        return 0;
     }
 
 
@@ -268,7 +268,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<ShortTermNote> findAllShortNotes() {
         ShortTermNote note;
         ArrayList<ShortTermNote> notes = new ArrayList<>();
-        String query = "Select * From " + TABLE_SHORTNOTE + " Where " + COLUMN_SHORTNOTE_ISDEAD + " = " + NOT_DELETED;
+        String query = "Select * From " + TABLE_SHORTNOTE + " Where "
+                + COLUMN_SHORTNOTE_ISDEAD + " = " + NOT_DELETED
+                + " and " + COLUMN_SHORTNOTE_LONGNOTEID + NOT_BELONG;
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -280,7 +282,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setContent(cursor.getString(2));
                 note.setDeadline(cursor.getString(3));
                 note.setIsDeleted(cursor.getInt(4));
-                note.setLongNoteId(cursor.getInt(5));
+                note.setIsComplete(cursor.getInt(5));
+                note.setLongNoteId(cursor.getInt(6));
 
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -306,7 +309,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setContent(cursor.getString(2));
                 note.setDeadline(cursor.getString(3));
                 note.setIsDeleted(cursor.getInt(4));
-                note.setLongNoteId(cursor.getInt(5));
+                note.setIsComplete(cursor.getInt(5));
+                note.setLongNoteId(cursor.getInt(6));
 
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -320,7 +324,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<ShortTermNote> findUrgentNotes() {
         ShortTermNote note;
         ArrayList<ShortTermNote> notes = new ArrayList<>();
-        String query = "Select *  From  " + TABLE_SHORTNOTE + " Where " + COLUMN_SHORTNOTE_ISDEAD + " = " + NOT_DELETED + " Order by " + COLUMN_SHORTNOTE_DEADLINE ;
+        String query = "Select *  From  " + TABLE_SHORTNOTE + " Where " + COLUMN_SHORTNOTE_ISDEAD + " = " + NOT_DELETED +
+                " and " + COLUMN_SHORTNOTE_ISCOMPLETE + " = " + NOT_COMPLETE +
+                " Order by " + COLUMN_SHORTNOTE_DEADLINE;
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -332,7 +338,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setContent(cursor.getString(2));
                 note.setDeadline(cursor.getString(3));
                 note.setIsDeleted(cursor.getInt(4));
-                note.setLongNoteId(cursor.getInt(5));
+                note.setIsComplete(cursor.getInt(5));
+                note.setLongNoteId(cursor.getInt(6));
 
                 if (note.getIsDeleted() != DELETED) {
                     notes.add(note);
@@ -365,7 +372,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_SHORTNOTE_ISDEAD, note.getIsDeleted());
 
         SQLiteDatabase database = getWritableDatabase();
-        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
+        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
     //move item to trash bin
@@ -374,7 +381,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_SHORTNOTE_ISDEAD, DELETED);
 
         SQLiteDatabase database = getWritableDatabase();
-        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
+        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
     //restore item from trash
@@ -383,26 +390,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_SHORTNOTE_ISDEAD, NOT_DELETED);
 
         SQLiteDatabase database = getWritableDatabase();
-        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
+        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
-    public int deleteAllBin(){
+    public int deleteAllBin() {
         SQLiteDatabase db = getWritableDatabase();
-        return db.delete(TABLE_SHORTNOTE, COLUMN_SHORTNOTE_ISDEAD + " = ?" , new String[]{String.valueOf(DELETED)});
+        return db.delete(TABLE_SHORTNOTE, COLUMN_SHORTNOTE_ISDEAD + " = ?", new String[]{String.valueOf(DELETED)});
     }
 
-    public int revertAllBin(){
+    public int revertAllBin() {
         ContentValues values = new ContentValues();
         values.put(COLUMN_SHORTNOTE_ISDEAD, NOT_DELETED);
 
         SQLiteDatabase database = getWritableDatabase();
-        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ISDEAD + " = ?" , new String[]{String.valueOf(DELETED)});
+        return database.update(TABLE_SHORTNOTE, values, COLUMN_SHORTNOTE_ISDEAD + " = ?", new String[]{String.valueOf(DELETED)});
     }
 
     public ArrayList<LongTermNote> findAllLongNotes() {
         LongTermNote note;
         ArrayList<LongTermNote> notes = new ArrayList<>();
-        String query = "Select * From " + TABLE_LONGNOTE + " order by "+ COLUMN_LONGNOTE_ID + " desc";
+        String query = "Select * From " + TABLE_LONGNOTE + " order by " + COLUMN_LONGNOTE_ID + " desc";
 
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -420,6 +427,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return notes;
     }
+
     public long addShortTermNoteOfLongTerm(ShortTermNote note) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_SHORTNOTE_TITLE, note.getTitle());
@@ -434,11 +442,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return result;
     }
+
     public int updateLongNote(int id, LongTermNote note) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_SHORTNOTE_TITLE, note.getTitle());
 
         SQLiteDatabase database = getWritableDatabase();
-        return database.update(TABLE_LONGNOTE, values, COLUMN_LONGNOTE_ID + " = ?" , new String[]{String.valueOf(id)});
+        return database.update(TABLE_LONGNOTE, values, COLUMN_LONGNOTE_ID + " = ?", new String[]{String.valueOf(id)});
     }
 }

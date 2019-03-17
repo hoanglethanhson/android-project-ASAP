@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private ArrayList<ShortTermNote> notes;
     private static final int MAIN_REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +75,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, ViewShortPlanDetail.class);
-                TwoLineListItem twoLineListItem  =(TwoLineListItem) view;
-                String firstLine = twoLineListItem.getText1().getText().toString();
-                String[] words=firstLine.split("\\s");
-                intent.putExtra("id", words[0]);
+//                TwoLineListItem twoLineListItem  =(TwoLineListItem) view;
+//                String firstLine = twoLineListItem.getText1().getText().toString();
+//                String[] words=firstLine.split("\\s");
+//                intent.putExtra("id", words[0]);
+
+                intent.putExtra("id",String.valueOf(notes.get(position).getId()));
                 startActivityForResult(intent, MAIN_REQUEST_CODE);
                 //startActivity(intent);
             }
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
         //databaseHandler.deleteShortTermNote("third");
         ListView listView = findViewById(R.id.listPlan);
-        final ArrayList<ShortTermNote> notes = databaseHandler.findUrgentNotes();
+        notes = databaseHandler.findUrgentNotes();
         if (notes.isEmpty()) {
             Toast.makeText(this.getApplicationContext(), "No urgent notes to display!", Toast.LENGTH_LONG).show();
         }
@@ -106,15 +110,32 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                View view =super.getView(position, convertView, parent);
-                TextView text1 = view.findViewById(android.R.id.text1);
-                TextView text2 = view.findViewById(android.R.id.text2);
+//                View view =super.getView(position, convertView, parent);
+//                TextView text1 = view.findViewById(android.R.id.text1);
+//                TextView text2 = view.findViewById(android.R.id.text2);
+//
+//                text1.setText(notes.get(position).getId() + " " + notes.get(position).getTitle());
+//                text2.setText(notes.get(position).getContent());
+////                text1.setVisibility(View.INVISIBLE);
+//
+//                return view;
+                LayoutInflater layoutInflater =  LayoutInflater.from(parent.getContext());
+                convertView = layoutInflater.inflate(R.layout.item_note_with_checkmark, parent, false);
 
-                text1.setText(notes.get(position).getId() + " " + notes.get(position).getTitle());
-                text2.setText(notes.get(position).getContent());
-//                text1.setVisibility(View.INVISIBLE);
+                TextView txtTitle = convertView.findViewById(R.id.tv_item_text);
+                TextView txtContent = convertView.findViewById(R.id.tv_item_content);
+                ImageView check = convertView.findViewById(R.id.iv_checkmark);
+                txtTitle.setText(notes.get(position).getTitle());
+                txtTitle.setText(notes.get(position).getContent());
+                if (notes.get(position).getIsComplete() == 1) {
+                    check.setVisibility(View.VISIBLE);
+                } else {
+                    check.setVisibility(View.INVISIBLE);
+                }
 
-                return view;
+
+                return convertView;
+
             }
         };
 

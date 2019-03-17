@@ -21,6 +21,7 @@
         android:gravity="center"
         android:textSize="24sp"
         android:text="All Long Plan Notes"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/refresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

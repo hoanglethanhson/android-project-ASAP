@@ -107,9 +107,11 @@ public class ViewLongPlanDetail extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                 convertView = inflater.inflate(R.layout.item_note_with_checkmark, parent, false);
 
-                TextView text = convertView.findViewById(R.id.tv_item_text);
+                TextView txtTitle = convertView.findViewById(R.id.tv_item_text);
+                TextView txtContent = convertView.findViewById(R.id.tv_item_content);
                 ImageView check = convertView.findViewById(R.id.iv_checkmark);
-                text.setText(notes.get(position).getTitle());
+                txtTitle.setText(notes.get(position).getTitle());
+                txtTitle.setText(notes.get(position).getContent());
                 if (notes.get(position).getIsComplete() == 1) {
                     check.setVisibility(View.VISIBLE);
                 } else {
