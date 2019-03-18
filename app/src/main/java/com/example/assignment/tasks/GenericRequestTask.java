@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -29,7 +28,6 @@ import java.net.URLEncoder;
 
 
 public abstract class GenericRequestTask extends AsyncTask<String, String, TaskOutput> {
-    LocationManager locationManager;
     ProgressDialog progressDialog;
     Context context;
     WeatherActivity activity;
@@ -174,6 +172,7 @@ public abstract class GenericRequestTask extends AsyncTask<String, String, TaskO
     private static void close(Closeable x) {
         try {
             if (x != null) {
+//                Closes this stream and releases any system resources associated with it.
                 x.close();
             }
         } catch (IOException e) {

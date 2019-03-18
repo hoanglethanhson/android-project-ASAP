@@ -81,15 +81,7 @@
                         android:textAlignment="viewEnd"
                         android:textSize="72dp" />
 
-                    <TextView
-                        android:id="@+id/lastUpdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="bottom|end"
-                        android:gravity="bottom|end"
-                        android:paddingRight="16dp"
-                        android:textAlignment="viewEnd"
-                        android:textSize="16dp" />
+
                 </LinearLayout>
 
 

@@ -23,9 +23,10 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //create to transfer data
         Bundle bundle = this.getArguments();
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         WeatherActivity WeatherActivity = (WeatherActivity) getActivity();
         recyclerView.setAdapter(WeatherActivity.getAdapter(bundle.getInt("day")));

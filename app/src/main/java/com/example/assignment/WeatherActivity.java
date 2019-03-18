@@ -53,8 +53,6 @@ import java.util.List;
 
 public class WeatherActivity extends AppCompatActivity  implements LocationListener {
     protected static final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 1;
-    private static final String TAG = "WeatherActivity";
-    // Time in milliseconds; only reload weather if last update is longer ago than this value
 
     Typeface weatherFont;
     Weather todayWeather = new Weather();
@@ -62,7 +60,6 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
     TextView todayTemperature;
     TextView todaySunrise;
     TextView todaySunset;
-    TextView lastUpdate;
     TextView todayIcon;
     ViewPager viewPager;
     TabLayout tabLayout;
@@ -100,7 +97,6 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
         todayTemperature = findViewById(R.id.todayTemperature);
         todaySunrise = findViewById(R.id.todaySunrise);
         todaySunset = findViewById(R.id.todaySunset);
-        lastUpdate = findViewById(R.id.lastUpdate);
         todayIcon = findViewById(R.id.todayIcon);
         weatherFont = Typeface.createFromAsset(this.getAssets(), "fonts/weather.ttf");
         todayIcon.setTypeface(weatherFont);
@@ -142,6 +138,8 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
         }
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -149,6 +147,7 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
 
         if (locationManager != null) {
             try {
+//                Removes all location updates for the weather intent.
                 locationManager.removeUpdates(WeatherActivity.this);
             } catch (SecurityException e) {
                 e.printStackTrace();
@@ -162,7 +161,7 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
     }
 
     private void getLongTermWeather() {
-        new LongTermWeatherTask(this, this, progressDialog).execute();
+            new LongTermWeatherTask(this, this, progressDialog).execute();
     }
 
     @SuppressLint("RestrictedApi")
@@ -415,7 +414,6 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
 
     void getCityByLocation() {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -469,6 +467,7 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
 
     @Override
     public void onLocationChanged(Location location) {
+
     }
 
     @Override
@@ -485,8 +484,6 @@ public class WeatherActivity extends AppCompatActivity  implements LocationListe
     public void onProviderDisabled(String provider) {
 
     }
-
-
 
 
     class TodayWeatherTask extends GenericRequestTask {
